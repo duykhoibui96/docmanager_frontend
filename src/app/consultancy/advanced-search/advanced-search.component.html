@@ -1,0 +1,47 @@
+<div class="container mt-5 mb-5">
+  <p class="display-4">KẾT QUẢ TÌM KIẾM</p>
+  <div id="found" *ngIf="data == null">
+    <p class="h3">
+      <b>
+        Không tìm thấy mục tư vấn nào
+        <span *ngIf="beginTime == null">trước ngày {{endTime}}</span>
+        <span *ngIf="endTime == null">sau ngày {{beginTime}}</span>
+        <span *ngIf="endTime && beginTime"> từ ngày {{beginTime}} đến {{endTime}}</span>
+      </b>
+    </p>
+  </div>
+  <div id="found" *ngIf="data != null">
+    <p class="h3 mb-5">
+      <b>
+        Tổng cộng có {{data.length}} mục tư vấn tìm được
+        <span *ngIf="!beginTime">trước ngày {{endTime}}</span>
+        <span *ngIf="!endTime">sau ngày {{beginTime}}</span>
+        <span *ngIf="endTime && beginTime"> từ ngày {{beginTime}} đến {{endTime}}</span>
+      </b>
+    </p>
+    <table class="table table-hover table-mc-light-blue">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Mã tư vấn</th>
+          <th>Tên mục tư vấn</th>
+          <th>Nhân viên tư vấn</th>
+          <th>Khách hàng</th>
+          <th>Người được tư vấn</th>
+          <th>Thời gian</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="clickable table-item" *ngFor="let obj of data;let i = index" [routerLink]="['/consultancy/detail',obj.ConsID]">
+          <th>{{i + 1}}</th>
+          <th>{{obj.ConsID}}</th>
+          <th>{{obj.Name}}</th>
+          <th>{{obj.ConsultingEmpl.EmplID + '-' + obj.ConsultingEmpl.Name}}</th>
+          <th>{{obj.Customer.CustomerID + '-' + obj.Customer.Name}}</th>
+          <th>{{obj.ConsultedPerson}}</th>
+          <th>{{obj.Time.day + '/' + obj.Time.month + '/' + obj.Time.year}}</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

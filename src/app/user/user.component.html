@@ -1,0 +1,26 @@
+<app-user-header></app-user-header>
+<div id="content" style="margin-top: 55px">
+  <div class="row">
+    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 p-5 sidebar" id="menu">
+      <app-user-menu></app-user-menu>
+    </div>
+    <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 p-0">
+      <div style="min-height: 800px">
+        <div class="container p-5">
+          <li class="media mb-5">
+            <img class="mr-3" src="/assets/images/user.png" style="height: 100px" alt="Generic placeholder image">
+            <div class="media-body ml-5">
+              <h5 class="mt-0 mb-1">{{employee.Name}}</h5>
+              <p class="mb-0">Phòng ban: {{employee.ChildDepartment}}</p>
+              <p class="mb-0">Chức vụ: {{employee.OfficerCode}}</p>
+              <p class="mb-0">Công việc: {{employee.JobTitle}}</p>
+              <p class="mb-0">Email: {{employee.Mail}}</p>
+            </div>
+          </li>
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+      <app-user-footer></app-user-footer>
+    </div>
+  </div>
+</div>

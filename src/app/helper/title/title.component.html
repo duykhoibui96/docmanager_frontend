@@ -1,0 +1,14 @@
+<div class="title">
+  <div class="row">
+    <div class="col-7 text-uppercase">
+      {{title}}
+    </div>
+    <div class="col-1 ml-auto" *ngIf="mode == 'single' && !isCurrent">
+      <i class="fa fa-list clickable" (click)="moveToList()"></i>
+    </div>
+    <div class="col-1 ml-auto" *ngIf="mode == 'list'">
+      <i class="fa fa-plus mr-3 clickable" [routerLink]="['../create_new']" routerLinkActive="active"></i>
+      <i class="fa fa-refresh clickable" [routerLink]="['.']" [queryParams]="queryParams" routerLinkActive="active"></i>
+    </div>
+  </div>
+</div>

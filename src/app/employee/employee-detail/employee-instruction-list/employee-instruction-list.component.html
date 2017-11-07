@@ -1,0 +1,42 @@
+<form #addForm="ngForm" (ngSubmit)="addForm.form.valid && !recordSearchFailed && add()">
+  <div class="input-group">
+    <input type="text" class="form-control" [placeholder]="placeholder" [class.is-invalid]="recordSearchFailed" [(ngModel)]="currentRecord"
+      name="currentRecord" [ngbTypeahead]="recordLoading" [resultFormatter]="recordFormatter" [inputFormatter]="recordFormatter"
+      required #record="ngModel">
+    <span class="btn clickable input-group-addon fa fa-plus" (click)="addForm.form.valid && !recordSearchFailed && add()"></span>
+  </div>
+  <p class="error-notify" [hidden]="record.valid || record.pristine">Không được để trống</p>
+  <p class="error-notify" *ngIf="record.valid && recordSearchFailed">Tư vấn không tồn tại</p>
+</form>
+<p class="lead m-4" [hidden]="list && list.length > 0">Chưa hướng dẫn mục nghiên cứu nào</p>
+<div class="mt-3 content" id="collection" *ngIf="list && list.length > 0">
+  <ngb-pagination [collectionSize]="totalSize" [pageSize]="pageSize" [(page)]="page" [boundaryLinks]="true" [maxSize]="5" [rotate]="true"
+    (pageChange)="pageChange($event)"></ngb-pagination>
+  <p style="font-weight: bold">Tổng số: {{totalSize}}</p>
+  <table class="table table-hover table-responsive table-mc-light-blue">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Tên nghiên cứu</th>
+        <th>Hội thảo liên quan</th>
+        <th>Thời gian</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of list; let i=index" [routerLink]="['/admin/study/detail',item._id]" routerLinkActive="active">
+        <td>{{i+1}}</td>
+        <td>{{item.Name}}</td>
+        <td>{{item.Seminar ? item.Seminar.Name : ''}}</td>
+        <td>{{modifyDate(item.Time)}}</td>
+        <td class="clickable text-center">
+          <i class="fa fa-file" (click)="documentAccess(item);$event.stopPropagation();"></i>
+        </td>
+        <td class="clickable text-center">
+          <i class="fa fa-times" (click)="delete(item);$event.stopPropagation();"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

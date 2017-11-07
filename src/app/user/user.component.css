@@ -1,0 +1,11 @@
+@media (max-width: 991px) {
+  #menu {
+    display: none;
+  }
+}
+
+#menu {
+  box-shadow: 1px 1px 3px #888888;
+  border-right: 1px solid gray;
+  border-top: 1px solid gray;
+}

@@ -1,0 +1,24 @@
+<div id="accessAccordion" role="tablist">
+  <div class="card">
+    <div class="card-header collapsed clickable" role="tab" id="accessHeading" data-toggle="collapse" href="#accessCollapse" aria-expanded="true"
+      aria-controls="accessCollapse">
+      <h5 class="mb-0">
+        Truy cập nhanh
+      </h5>
+    </div>
+    <div id="accessCollapse" class="collapse" role="tabpanel" aria-labelledby="accessHeading" data-parent="#accessAccordion">
+      <div class="card-body">
+        <form #accessForm="ngForm" (ngSubmit)="accessForm.form.valid && !recordSearchFailed && accessRecord()">
+          <div class="input-group">
+            <input type="text" class="form-control" [placeholder]="placeholder" [class.is-invalid]="recordSearchFailed"
+              [(ngModel)]="currentRecord" name="currentRecord" [ngbTypeahead]="recordLoading" [resultFormatter]="recordFormatter"
+              [inputFormatter]="recordFormatter" required #record="ngModel">
+            <span class="btn clickable input-group-addon fa fa-paper-plane" (click)="accessForm.form.valid && !recordSearchFailed && accessRecord()"></span>
+          </div>
+          <p class="error-notify" [hidden]="record.valid || record.pristine">Không được để trống</p>
+          <p class="error-notify" *ngIf="record.valid && recordSearchFailed">Dữ liệu không tồn tại</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

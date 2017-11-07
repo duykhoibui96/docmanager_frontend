@@ -1,0 +1,9 @@
+<app-title [title]="'Chi tiết khách hàng'" [mode]="'single'" [url]="'/customers'"></app-title>
+<div class="text-right pr-5 pt-3">
+  <button class="btn app-btn toggle-btn" routerLink="info" routerLinkActive="active">Thông tin cá nhân</button>
+  <button class="btn app-btn toggle-btn" routerLink="employee-list" routerLinkActive="active" [queryParams]="{ page: 1}">Nhân viên quản lý</button>
+  <button class="btn app-btn toggle-btn" routerLink="consultancy-list" routerLinkActive="active" [queryParams]="{ page: 1}">Danh sách tư vấn</button>
+</div>
+<div class="container p-5">
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,231 @@
+<div class="title">
+  <div class="row">
+    <div class="col-7">
+      DANH SÁCH TÀI LIỆU
+    </div>
+    <div class="col-1 ml-auto">
+      <i class="fa fa-plus mr-3 clickable" [routerLink]="['../create_new']" routerLinkActive="active"></i>
+      <i class="fa fa-refresh clickable" [routerLink]="['.']" [queryParams]="{ page: 1 }" routerLinkActive="active"></i>
+    </div>
+  </div>
+</div>
+<div id="accordion" role="tablist">
+  <div class="card">
+    <div class="card-header collapsed clickable" role="tab" id="headingOne" data-toggle="collapse" href="#collapseOne" aria-expanded="true"
+      aria-controls="collapseOne">
+      <h5 class="mb-0">
+        Truy cập tài liệu
+      </h5>
+    </div>
+    <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        <form #accessForm="ngForm" (ngSumit)="accessForm.form.valid && open(currentRecord)">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Nhập tên tài liệu cần truy xuất" [class.is-invalid]="recordSearchFailed"
+              [(ngModel)]="currentRecord" name="currentRecord" [ngbTypeahead]="recordLoading" [resultFormatter]="recordFormatter"
+              [inputFormatter]="recordFormatter" required #record="ngModel">
+            <span class="btn clickable input-group-addon fa fa-paper-plane" (click)="accessForm.form.valid && open(currentRecord)"></span>
+          </div>
+          <p style="color: red" [hidden]="record.valid || record.pristine">Không được để trống</p>
+          <p style="color: red" *ngIf="record.valid && recordSearchFailed">Tài liệu không tồn tại</p>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header collapsed clickable" role="tab" id="headingTwo" data-toggle="collapse" href="#collapseTwo" aria-expanded="false"
+      aria-controls="collapseTwo">
+      <h5 class="mb-0">
+        Tìm kiếm
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+        <form (ngSubmit)="search()">
+          <div class="mt-3 row" id="filteredBox">
+            <div class="col-sm-8 col-xs-12">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Nhập từ khóa" [(ngModel)]="searchParams.keyWord" name="keyWord">
+              </div>
+            </div>
+            <div class="col-sm-4 col-xs-12">
+              <!-- <div class="form-group">
+                <select class="form-control" [(ngModel)]="searchParams.collection" name="collection">
+                  <option value="all">Tất cả</option>
+                  <option value="consultancy">Mục tư vấn</option>
+                  <option value="study">Mục nghiên cứu</option>
+                </select>
+              </div> -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4 col-xs-12">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" [(ngModel)]="searchParams.startDate" name="startDate" ngbDatepicker #begin="ngbDatepicker"
+                  placeholder="Ngày bắt đầu" [disabled]="searchParams.timeMode != 'depends'">
+                <button class="input-group-addon" (click)="begin.toggle()" type="button">
+                  <i class="fa fa-calendar"></i>
+                </button>
+              </div>
+            </div>
+            <div class="col-sm-4 col-xs-12">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" [(ngModel)]="searchParams.endDate" name="endDate" ngbDatepicker #end="ngbDatepicker"
+                  placeholder="Ngày kết thúc" [disabled]="searchParams.timeMode != 'depends'">
+                <button class="input-group-addon" (click)="end.toggle()" type="button">
+                  <i class="fa fa-calendar"></i>
+                </button>
+              </div>
+            </div>
+            <div class="col-sm-4 col-xs-12">
+              <div class="form-group">
+                <select class="form-control" [(ngModel)]="searchParams.timeMode" name="timeMode">
+                  <option value="10-days-recent">10 ngày gần đầy</option>
+                  <option value="20-days-recent">20 ngày gần đầy</option>
+                  <option value="depends">Tùy chỉnh</option>
+                  <option value="all">Toàn bộ thời gian</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <!-- <div class="form-group">
+                <input type="text" class="form-control" placeholder="Nhập mã hoặc tên mục tư vấn"
+                  [(ngModel)]="searchParams.collectionRecord" name="collectionRecord" [ngbTypeahead]="indexLoading" [resultFormatter]="indexFormatter"
+                  [inputFormatter]="indexFormatter" [disabled]="searchParams.collection == 'all'">
+                <p style="color: red" *ngIf="indexSearchFailed">Mục tư vấn không tồn tại</p>
+              </div> -->
+            </div>
+            <div class="col text-right ml-auto">
+              <button class="btn app-btn primary" type="submit">Tìm kiếm</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="lead m-5" [hidden]="list && list.length > 0">Không có tài liệu</p>
+<div class="col-sm-12 col-xs-12 mt-3 content" id="collection" *ngIf="list && list.length > 0">
+  <ngb-pagination [collectionSize]="totalSize" [pageSize]="pageSize" [(page)]="page" [boundaryLinks]="true" [maxSize]="5" [rotate]="true"
+    (pageChange)="pageChange($event)"></ngb-pagination>
+  <p style="font-weight: bold">Tổng số: {{totalSize}}</p>
+  <table class="table table-hover table-responsive table-mc-light-blue">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Tập tin</th>
+        <th>Kích thước</th>
+        <th>Ngày đăng</th>
+        <!-- <th></th> -->
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let file of list; let i=index">
+        <td>{{i+1}}</td>
+        <td>{{file.data.originalname}}</td>
+        <td>{{file.data.size}} bytes</td>
+        <td>{{modifyDate(file.Time)}}</td>
+        <!-- <td class="clickable text-center">
+          <i class="fa fa-share" title="Chia sẻ" data-toggle="modal" data-target="#shareDialog" (click)="selectedDocumentID = file._id"></i>
+        </td> -->
+        <td class="clickable text-center">
+          <i class="fa fa-eye" title="Xem" (click)="open(file);$event.stopPropagation();"></i>
+        </td>
+        <td class="clickable text-center">
+          <i class="fa fa-download" title="Tải xuống" (click)="download(file);$event.stopPropagation();"></i>
+        </td>
+        <td class="clickable text-center">
+          <i class="fa fa-times" title="Xóa" (click)="delete(file);$event.stopPropagation();"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Modal -->
+<!-- <div class="modal fade" id="shareDialog" tabindex="-1" role="dialog" aria-labelledby="shareDialogLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="shareDialogLabel">Chia sẻ tài liệu</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center mb-3">
+          <button class="btn app-btn toggle-btn mr-3" [class.active]="addResourceMode == 'consultancy'" (click)="addResourceMode = 'consultancy'">Mục tư vấn</button>
+          <button class="btn app-btn toggle-btn mr-3" [class.active]="addResourceMode == 'study'" (click)="addResourceMode = 'study'">Mục nghiên cứu</button>
+        </div>
+        <div [ngSwitch]="addResourceMode">
+          <div *ngSwitchCase="'consultancy'">
+            <form #addConsultancyForm="ngForm" (ngSubmit)="addConsultancyForm.valid && !consultancySearchFailed && consultancyList.push(currentConsultancy)">
+              <div class="input-group">
+                <input type="text" class="form-control" [class.is-invalid]="consultancySearchFailed" placeholder="Nhập mã hoặc tên mục tư vấn cần lưu tài liệu"
+                  [(ngModel)]="currentConsultancy" name="Consultancy" [ngbTypeahead]="consultancyLoading" [resultFormatter]="consultancyFormatter"
+                  [inputFormatter]="consultancyFormatter" required #newConsultancy="ngModel">
+                <span class="btn clickable input-group-addon fa fa-paper-plane" (click)="addConsultancyForm.valid && !consultancySearchFailed && consultancyList.push(currentConsultancy)"></span>
+              </div>
+              <p class="error-notify" *ngIf="newConsultancy.valid && consultancySearchFailed">Mục tư vấn không tồn tại</p>
+            </form>
+            <table class="table table-hover table-responsive table-mc-light-blue" *ngIf="consultancyList.length > 0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Mục tư vấn</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of consultancyList; let i=index">
+                  <td>{{i+1}}</td>
+                  <td>{{item.ConsID}} - {{item.Name}}</td>
+                  <td class="clickable text-center">
+                    <i class="fa fa-times" title="Xóa" (click)="consultancyList.splice(consultancyList.indexOf(item),1)"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngSwitchCase="'study'">
+            <form #addStudyForm="ngForm" (ngSubmit)="addStudyForm.valid && !studySearchFailed && studyList.push(currentStudy)">
+              <div class="input-group">
+                <input type="text" class="form-control" [class.is-invalid]="studySearchFailed" placeholder="Nhập mã hoặc tên mục nghiên cứu cần lưu tài liệu"
+                  [(ngModel)]="currentStudy" name="Study" [ngbTypeahead]="studyLoading" [resultFormatter]="studyFormatter"
+                  [inputFormatter]="studyFormatter" required #newStudy="ngModel">
+                <span class="btn clickable input-group-addon fa fa-paper-plane" (click)="addStudyForm.valid && !studySearchFailed && studyList.push(currentStudy)"></span>
+              </div>
+              <p class="error-notify" *ngIf="newStudy.valid && studySearchFailed">Mục nghiên cứu không tồn tại</p>
+            </form>
+            <table class="table table-hover table-responsive table-mc-light-blue" *ngIf="studyList.length > 0">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Mục nghiên cứu</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of studyList; let i=index">
+                  <td>{{i+1}}</td>
+                  <td>{{item.StudyID}} - {{item.Name}}</td>
+                  <td class="clickable text-center">
+                    <i class="fa fa-times" title="Xóa" (click)="studyList.splice(studyList.indexOf(item),1)"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn app-btn default" aria-label="close" data-dismiss="modal" #closeDialog>Đóng</button>
+        <button type="button" class="btn app-btn" id="share" [disabled]="studyList.length == 0 && consultancyList.length == 0" data-dismiss="modal">Chia sẻ</button>
+      </div>
+    </div>
+  </div>
+</div> -->

@@ -1,0 +1,33 @@
+<!-- <p class="display-4 mt-5 mb-5 text-center">
+  <b>ĐĂNG NHẬP VÀO HỆ THỐNG</b>
+</p> -->
+<div class="container">
+  <div class="row">
+    <div class="card mx-auto mt-5 p-5 bg-light">
+      <div class="card-body">
+        <div class="text-center">
+          <img src="assets/images/fpt-logo.png" alt="">
+        </div>
+        <form (ngSubmit)="logInForm.form.valid && authenticate()" #logInForm="ngForm">
+          <div class="alert alert-danger" *ngIf="err">
+            {{err}}
+          </div>
+          <div class="form-group">
+            <label for="username">Tên tài khoản</label>
+            <input type="email" [(ngModel)]="authObj.Username" class="form-control" name="username" placeholder="Nhập tên tài khoản" #username="ngModel" required>
+            <p class="error-notify" [hidden]="username.valid || username.pristine">Phải nhập tên tài khoản</p>
+          </div>
+          <div class="form-group">
+            <label for="password">Mật khẩu</label>
+            <input type="password" [(ngModel)]="authObj.Password" class="form-control" name="password" placeholder="Nhập mật khẩu" #password="ngModel" required>
+            <p class="error-notify" [hidden]="password.valid || password.pristine">Phải nhập mật khẩu/p>
+          </div>
+          <div class="text-right">
+            <button type="submit" class="btn app-btn" [disabled]="!logInForm.form.valid">ĐĂNG NHẬP</button>
+            <!-- <a href="javascript:;">Quên mật khẩu</a> -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

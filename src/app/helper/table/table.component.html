@@ -1,0 +1,30 @@
+<div class="text-right pb-2">
+  <button [hidden]="hideAddIcon" class="btn app-btn primary p-2" (click)="eventTrigger.emit({ type: 'item-add'});selectedItem=null;">
+    <i class="fa fa-plus"></i>
+  </button>
+</div>
+<div [hidden]="list && list.length > 0">
+  <p class="lead">Chưa có dữ liệu</p>
+</div>
+<div *ngIf="list && list.length > 0">
+  <table class="table table-hover table-mc-light-blue">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th *ngFor="let item of titleList">{{item.Display}}</th>
+        <th [hidden]="hideDeleteIcon"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="clickable table-item" *ngFor="let item of list; let i=index" (click)="select(item)" [class.selected]="selectedItem == item">
+        <td scope="row">{{startIndex + i}}</td>
+        <td scope="row" *ngFor="let key of titleList">{{item[key.Key]}}</td>
+        <td [hidden]="hideDeleteIcon" class="delete-icon text-center" (click)="eventTrigger.emit({ type: 'item-delete', data: item });$event.stopPropagation();">
+          <i class="fa fa-times"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-weight: bold">Tổng số: {{totalSize}}</p>
+  <ngb-pagination [collectionSize]="totalSize" [(page)]="newPage" [boundaryLinks]="true" [pageSize]="10" [maxSize]="5" [rotate]="true" (pageChange)="pageChange($event)"></ngb-pagination>
+</div>

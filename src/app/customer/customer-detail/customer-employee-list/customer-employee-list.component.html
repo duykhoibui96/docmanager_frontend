@@ -1,0 +1,29 @@
+<p class="lead m-2" [hidden]="list && list.length > 0">Chưa có nhân viên quản lý</p>
+<div class="col-sm-12 col-xs-12 mt-3 content" id="collection" *ngIf="list && list.length > 0">
+  <ngb-pagination [collectionSize]="totalSize" [pageSize]="pageSize" [(page)]="page" [boundaryLinks]="true" [maxSize]="5" [rotate]="true"
+    (pageChange)="pageChange($event)"></ngb-pagination>
+  <p style="font-weight: bold">Tổng số: {{totalSize}}</p>
+  <table class="table table-hover table-responsive table-mc-light-blue">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Tên nhân viên</th>
+        <th>Phòng ban</th>
+        <th>Chức vụ</th>
+        <th>Công việc</th>
+        <th>Email</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of list; let i=index" [routerLink]="['/admin/employee/detail',item._id]" routerLinkActive="active">
+        <td>{{i+1}}</td>
+        <td>{{item.Name}}</td>
+        <td>{{item.ChildDepartment}}</td>
+        <td>{{item.OfficerCode}}</td>
+        <td>{{item.JobTitle}}</td>
+        <td>{{item.Mail}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

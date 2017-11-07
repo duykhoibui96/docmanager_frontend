@@ -1,0 +1,111 @@
+<div class="container mt-5 mb-5">
+  <p class="display-4">KẾT QUẢ TÌM KIẾM</p>
+  <div id="found" *ngIf="data == null">
+    <p class="h3">
+      <b>Không tìm thấy kết quả với từ khóa
+        <span>"{{searchText}}"</span>
+      </b>
+    </p>
+  </div>
+  <div id="found" *ngIf="data != null">
+    <p class="h3">
+      <b>Tổng cộng có {{data.employeeList.length + data.customerList.length + data.consultancyList.length}} kết quả tìm được
+        với từ khóa "{{searchText}}"
+      </b>
+    </p>
+    <div class="text-left mb-5">
+      <button class="btn app-btn toggle-btn btn-lg mr-3" [class.active]="mode == 'employee'" (click)="mode='employee'">NHÂN VIÊN
+        <span class="badge badge-secondary">{{data.employeeList.length}}</span>
+      </button>
+      <button class="btn app-btn toggle-btn btn-lg mr-3" [class.active]="mode == 'customer'" (click)="mode='customer'">KHÁCH HÀNG
+        <span class="badge badge-secondary">{{data.customerList.length}}</span>
+      </button>
+      <button class="btn app-btn toggle-btn btn-lg" [class.active]="mode == 'consultancy'" (click)="mode='consultancy'">TƯ VẤN
+        <span class="badge badge-secondary">{{data.consultancyList.length}}</span>
+      </button>
+    </div>
+    <div id="filterBox" class="mb-3 mt-3" [hidden]="data == null">
+      <div class="form-group">
+        <input type="text" [(ngModel)]="filterText" name="filterText" class="form-control" placeholder="Lọc kết quả">
+      </div>
+    </div>
+    <div [ngSwitch]="mode">
+      <div *ngSwitchCase="'employee'">
+        <table class="table table-hover table-mc-light-blue">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Mã nhân viên</th>
+              <th>Tên nhân viên</th>
+              <th>Phòng ban</th>
+              <th>Chức vụ</th>
+              <th>Công việc</th>
+              <th>Mail</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="clickable table-item" *ngFor="let obj of data.employeeList | filter: filterText ;let i = index" [routerLink]="['/employee/detail',obj.EmplID]">
+              <th>{{i + 1}}</th>
+              <th>{{obj.EmplID}}</th>
+              <th>{{obj.Name}}</th>
+              <th>{{obj.ChildDepartment}}</th>
+              <th>{{obj.OfficerCode}}</th>
+              <th>{{obj.JobTitle}}</th>
+              <th>{{obj.Mail}}</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngSwitchCase="'customer'">
+        <table class="table table-hover table-mc-light-blue">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Mã khách hàng</th>
+              <th>Tên khách hàng</th>
+              <th>Địa chỉ</th>
+              <th>Số điện thoại</th>
+              <th>Người đại diện</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="clickable table-item" *ngFor="let obj of data.customerList | filter: filterText ;let i = index" [routerLink]="['/customer/detail',obj.CustomerID]">
+              <th>{{i + 1}}</th>
+              <th>{{obj.CustomerID}}</th>
+              <th>{{obj.Name}}</th>
+              <th>{{obj.Address}}</th>
+              <th>{{obj.Phone}}</th>
+              <th>{{obj.Representative}}</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngSwitchCase="'consultancy'">
+        <table class="table table-hover table-mc-light-blue">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Mã tư vấn</th>
+              <th>Tên mục tư vấn</th>
+              <th>Nhân viên tư vấn</th>
+              <th>Khách hàng</th>
+              <th>Người được tư vấn</th>
+              <th>Thời gian</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="clickable table-item" *ngFor="let obj of data.consultancyList | filter: filterText ;let i = index" [routerLink]="['/consultancy/detail',obj.ConsID]">
+              <th>{{i + 1}}</th>
+              <th>{{obj.ConsID}}</th>
+              <th>{{obj.Name}}</th>
+              <th>{{obj.ConsultingEmpl.EmplID + '-' + obj.ConsultingEmpl.Name}}</th>
+              <th>{{obj.Customer.CustomerID + '-' + obj.Customer.Name}}</th>
+              <th>{{obj.ConsultedPerson}}</th>
+              <th>{{obj.Time.day + '/' + obj.Time.month + '/' + obj.Time.year}}</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

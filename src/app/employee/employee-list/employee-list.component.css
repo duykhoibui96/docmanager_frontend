@@ -1,0 +1,15 @@
+#emailCheck * {
+  font-size: 15px;
+}
+
+#emailCheck .valid {
+  color: green;
+}
+
+#emailCheck .invalid {
+  color: red;
+}
+
+#emailCheck .email-checking:hover {
+  color: blue;
+}

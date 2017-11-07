@@ -1,0 +1,76 @@
+/* Extra small devices (portrait phones, less than 576px) */
+
+
+/* @media (max-width: 575px) {
+  #menu {
+    position: fixed;
+    z-index: 1000;
+    background: white;
+  }
+} */
+
+
+/* Small devices (landscape phones, 576px and up) */
+
+.single {
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.single h3.side-title {
+  margin: 0;
+  margin-bottom: 10px;
+  padding: 0;
+  font-size: 25px;
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.single h3.side-title:after {
+  content: '';
+  width: 60px;
+  height: 1px;
+  background: #ff173c;
+  display: block;
+  margin-top: 6px;
+}
+
+.single ul {
+  margin-bottom: 0;
+}
+
+.single li a {
+  color: gray;
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: uppercase;
+  line-height: 40px;
+  display: block;
+  text-decoration: none;
+  margin-top: 20px;
+}
+
+.single li a:not(.active):hover {
+  color: #007bff;
+}
+
+.single li a.active {
+  color: green;
+}
+
+.single li a.active::before {
+  font-family: FontAwesome;
+  content: "\f0a4";
+  padding-right: 10px;
+}
+
+.single li a:not(.active):hover::before {
+  font-family: FontAwesome;
+  content: "\f120";
+  padding-right: 10px;
+}
+
+.single li:last-child a {
+  border-bottom: 0;
+}

@@ -1,0 +1,33 @@
+<form (ngSubmit)="form.form.valid && update()" #form="ngForm">
+  <!-- <div class="alert alert-warning" *ngIf="err">
+          {{err}}
+        </div> -->
+  <div class="form-group">
+    <label for="CustomerID">Mã khách hàng</label>
+    <input type="text" [(ngModel)]="customer.CustomerID" class="form-control" name="CustomerID" placeholder="Nhập mã khách hàng"
+      readonly required>
+  </div>
+  <div class="form-group">
+    <label for="Name">Tên khách hàng</label>
+    <input type="text" [(ngModel)]="record.Name" class="form-control" name="Name" placeholder="Nhập tên khách hàng" #name="ngModel"
+      required>
+    <p style="color: red" [hidden]="name.valid || name.pristine">
+      Phải nhập tên khách hàng
+    </p>
+  </div>
+  <div class="form-group">
+    <label for="Address">Địa chỉ</label>
+    <input type="text" [(ngModel)]="record.Address" class="form-control" name="Address" placeholder="Nhập địa chỉ">
+  </div>
+  <div class="form-group">
+    <label for="Phone">Điện thoại</label>
+    <input type="text" [(ngModel)]="record.Phone" class="form-control" name="Phone" placeholder="Nhập điện thoại">
+  </div>
+  <div class="form-group">
+    <label for="Representative">Người đại diện</label>
+    <input type="text" [(ngModel)]="record.Representative" class="form-control" name="Representative" placeholder="Nhập người đại diện">
+  </div>
+  <div class="text-right">
+    <button type="submit" class="btn app-btn" [disabled]="!form.form.valid">Cập nhật khách hàng</button>
+  </div>>
+</form>

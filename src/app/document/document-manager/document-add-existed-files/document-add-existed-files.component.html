@@ -1,0 +1,49 @@
+<div class="container p-5">
+  <form #addForm="ngForm" (ngSumit)="addForm.form.valid && addFile()" class="mb-2">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Nhập tên tài liệu cần thêm" [class.is-invalid]="recordSearchFailed"
+        placeholder="Nhập mã hoặc tên mục tư vấn" [(ngModel)]="currentRecord" name="recordRecord" [ngbTypeahead]="recordLoading"
+        [resultFormatter]="recordFormatter" [inputFormatter]="recordFormatter" required #record="ngModel">
+      <span class="btn clickable input-group-addon fa fa-paper-plane" (click)="addForm.form.valid && addFile()"></span>
+    </div>
+    <!-- <p style="color: red" [hidden]="record.valid || record.pristine">Không được để trống</p> -->
+    <p style="color: red" *ngIf="record.valid && recordSearchFailed">Tài liệu không tồn tại</p>
+  </form>
+  <p class="lead m-5" [hidden]="list && list.length > 0">Chưa chọn tài liệu để thêm</p>
+  <div *ngIf="list && list.length > 0">
+    <p style="font-weight: bold">Tổng số tài liệu sẽ thêm: {{list.length}}</p>
+    <table class="mt-2 table table-hover table-responsive table-mc-light-blue">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Tập tin</th>
+          <th>Kích thước</th>
+          <th>Ngày đăng</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let file of list; let i=index">
+          <td>{{i + 1}}</td>
+          <td>{{file.data.originalname}}</td>
+          <td>{{file.data.size}} bytes</td>
+          <td>{{modifyDate(file.date)}}</td>
+          <td class="clickable text-center">
+            <i class="fa fa-eye" (click)="open(file);$event.stopPropagation();"></i>
+          </td>
+          <td class="clickable text-center">
+            <i class="fa fa-download" (click)="download(file);$event.stopPropagation();"></i>
+          </td>
+          <td class="clickable text-center">
+            <i class="fa fa-times" (click)="list.splice(list.indexOf(file),1);$event.stopPropagation();"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-right">
+      <button class="btn app-btn" (click)="addDocuments()">Thêm tài liệu</button>
+    </div>
+  </div>
+</div>

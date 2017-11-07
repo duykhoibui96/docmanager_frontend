@@ -1,0 +1,16 @@
+/* .table-item:not(.selected):hover {
+  background: rgb(223, 215, 215);
+  color: black;
+} */
+
+.table-item.selected{
+  color: blue !important;
+} 
+
+
+.delete-icon:hover {
+
+  background: orange;
+  color: white;
+
+}

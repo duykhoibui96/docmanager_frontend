@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" style="z-index: 999">
+  <div class="container-fluid">
+    <a class="navbar-brand font-weight-bold" routerLink="home" routerLinkActive="active">
+      QUẢN LÝ TÀI LIỆU
+    </a>
+    <i class="navbar-toggler text-white menu-toggle clickable" data-toggle="collapse" data-target="#collapsible" aria-controls="navbarNav"
+      aria-expanded="false" aria-label="Toggle navigation">
+    </i>
+    <div class="collapse navbar-collapse" id="collapsible">
+      <ul id="extra-menu" class="navbar-nav mr-auto text-white mt-3 mb-3 pt-3 pb-3" style="font-weight: bold; border-top: 1px solid white; border-bottom: 1px solid white">
+        <li class="nav-item mr-5">
+          <a class="nav-link text-white" routerLink="info" routerLinkActive="active">THÔNG TIN CÁ NHÂN</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="customer-list" [queryParams]="{page: 1}" routerLinkActive="active">KHÁCH HÀNG QUẢN LÝ</a>
+        </li>
+        <li class="nav-item mr-5">
+          <a class="nav-link text-white" routerLink="consultancy-list" [queryParams]="{page: 1}" routerLinkActive="active">DANH SÁCH TƯ VẤN</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="study-list" [queryParams]="{page: 1}" routerLinkActive="active">DANH SÁCH HƯỚNG DẪN</a>
+        </li>
+        <li class="nav-item mr-5">
+          <a class="nav-link text-white" routerLink="seminar-list" [queryParams]="{page: 1}" routerLinkActive="active">DANH SÁCH NGHIÊN CỨU</a>
+        </li>
+        <li class="nav-item mr-5">
+          <a class="nav-link text-white" routerLink="instruction-list" [queryParams]="{page: 1}" routerLinkActive="active">DANH SÁCH HƯỚNG DẪN</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto text-white" style="font-weight: bold">
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="../login" routerLinkActive="active" style="color: white">ĐĂNG XUẤT</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

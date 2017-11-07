@@ -1,0 +1,73 @@
+/* Small devices (landscape phones, 576px and up) */
+
+@media (max-width: 991px) {
+  #extra-menu {
+    display: block;
+  }
+}
+
+@media (min-width: 992px) {
+  #extra-menu {
+    display: none;
+  }
+}
+
+.logo {
+  width: 80%;
+  height: 40px;
+}
+
+.search-input-group input {
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+}
+
+.search-input-group button {
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+
+.menu-toggle {
+  font-family: FontAwesome;
+}
+
+.menu-toggle::before {
+  content: "\f0c9";
+}
+
+.menu-item {
+  text-transform: uppercase;
+  font-weight: bold;
+  border-bottom: 2px solid #007bff;
+  margin-right: 20px;
+}
+
+.menu-item.active a::before {
+  font-family: FontAwesome;
+  content: "\f054";
+  padding-right: 10px;
+}
+
+.menu-item.active a::after {
+  font-family: FontAwesome;
+  content: "\f053";
+  padding-left: 10px;
+}
+
+.menu-item:not(.active):hover {
+  border-color: white;
+}
+
+.menu-link {
+  color: white;
+}
+
+.top-menu-item {
+  color: black;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.top-menu-item:hover {
+  color: gray;
+}

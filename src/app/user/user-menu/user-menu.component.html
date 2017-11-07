@@ -1,0 +1,36 @@
+<div class="container pt-5">
+  <div class="mx-auto" style="width: 150px">
+    <img src="/assets/images/fpt.png" alt="" style="width: 100%">
+  </div>
+  <div class="mx-auto" style="width: 250px">
+    <img src="/assets/images/logo.png" alt="" style="width: 100%">
+  </div>
+  <div class="single category">
+    <ul class="list-unstyled">
+      <li>
+        <a routerLink="info" routerLinkActive="active">Thông tin cá nhân
+        </a>
+      </li>
+      <li>
+        <a routerLink="customer-list" [queryParams]="{page: 1}" routerLinkActive="active">Khách hàng quản lý
+        </a>
+      </li>
+      <li>
+        <a routerLink="consultancy-list" [queryParams]="{page: 1}" routerLinkActive="active">Tư vấn
+        </a>
+      </li>
+      <li>
+        <a routerLink="study-list" [queryParams]="{page: 1}" routerLinkActive="active">Nghiên cứu
+        </a>
+      </li>
+      <li>
+        <a routerLink="instruction-list" [queryParams]="{page: 1}" routerLinkActive="active">Hướng dẫn
+        </a>
+      </li>
+      <li>
+        <a routerLink="seminar-list" [queryParams]="{page: 1}" routerLinkActive="active">Hội thảo
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

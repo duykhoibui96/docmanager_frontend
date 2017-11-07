@@ -1,0 +1,66 @@
+<div class="card mb-5" *ngIf="isCurrent">
+  <div class="card-header clickable" role="tab" id="headingOne">
+    <h5 class="mb-0" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+      Đổi mật khẩu
+    </h5>
+  </div>
+  <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+    <div class="card-body p-5">
+      <form #passwordForm="ngForm" (ngSubmit)="passwordForm.form.valid && updatePassword()">
+        <div class="form-group">
+          <label for="password">Mật khẩu</label>
+          <input type="password" (change)="passwordChangeFinished = false" [(ngModel)]="password" #pwd="ngModel" class="form-control" name="password" placeholder="Nhập mật khẩu mới"
+            required>
+          <p class="error-notify" [hidden]="passwordChangeFinished || pwd.valid || pwd.pristine">Mật khẩu không để trống</p>
+        </div>
+        <div class="form-group">
+          <label for="confirmedPassword">Nhập lại mật khẩu</label>
+          <input type="password" [(ngModel)]="confirmedPassword" class="form-control" name="confirmedPassword" placeholder="Nhập lại mật khẩu"
+            required>
+          <p class="error-notify" [hidden]="!passwordConflict">Nhập lại mật khẩu không chính xác</p>
+        </div>
+        <div class="text-right">
+          <button type="submit" class="btn app-btn" [disabled]="!passwordForm.form.valid">Cập nhật</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<form (ngSubmit)="employeeForm.form.valid && update()" #employeeForm="ngForm">
+  <!-- <div class="alert alert-warning" *ngIf="err">
+              {{err}}
+            </div> -->
+  <div class="form-group">
+    <label for="EmplID">Mã nhân viên</label>
+    <input type="text" [(ngModel)]="employee.EmplID" class="form-control" name="EmplID" placeholder="Nhập mã nhân viên" readonly
+      required>
+  </div>
+  <div class="form-group">
+    <label for="Name">Tên nhân viên</label>
+    <input type="text" [(ngModel)]="record.Name" class="form-control" name="Name" placeholder="Nhập tên nhân viên" #name="ngModel"
+      required>
+    <p style="color: red" [hidden]="name.valid || name.pristine">
+      Phải nhập tên nhân viên
+    </p>
+  </div>
+  <div class="form-group">
+    <label for="ChildDepartment">Phòng ban</label>
+    <input type="text" [(ngModel)]="record.ChildDepartment" class="form-control" name="ChildDepartment" placeholder="Nhập phòng ban">
+  </div>
+  <div class="form-group">
+    <label for="OfficerCode">Chức vụ</label>
+    <input type="text" [(ngModel)]="record.OfficerCode" class="form-control" name="OfficerCode" placeholder="Nhập chức vụ">
+  </div>
+  <div class="form-group">
+    <label for="JobTitle">Công việc</label>
+    <input type="text" [(ngModel)]="record.JobTitle" class="form-control" name="JobTitle" placeholder="Nhập công việc">
+  </div>
+  <div class="form-group">
+    <label for="Mail">Email</label>
+    <input type="email" [(ngModel)]="employee.Mail" class="form-control" name="Mail" placeholder="Nhập email"
+      required readonly>
+  </div>
+  <div class="text-right">
+    <button type="submit" class="btn app-btn" [disabled]="!employeeForm.form.valid">Cập nhật thông tin</button>
+  </div>
+</form>

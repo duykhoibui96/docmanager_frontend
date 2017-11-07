@@ -1,0 +1,59 @@
+<app-title [title]="'Chi tiết tư vấn'" [mode]="'single'" [url]="routingUrl"></app-title>
+<div class="text-right pr-5 pt-3">
+  <button class="btn app-btn primary" [routerLink]="['/admin/document/document-manager/consultancy',consultancy._id]" routerLinkActive="active" [queryParams]="{ page: 1 }">Quản lý tài liệu</button>
+</div>
+<div class="container p-5">
+  <form (ngSubmit)="form.form.valid && !employeeSearchFailed && !customerSearchFailed && update()" #form="ngForm">
+    <div class="form-group">
+      <label for="ConsID">Mã tư vấn</label>
+      <input type="text" [(ngModel)]="consultancy.ConsID" class="form-control" name="ConsID" placeholder="Nhập mã tư vấn" readonly
+        required>
+    </div>
+    <div class="form-group">
+      <label for="Name">Tên tư vấn</label>
+      <input type="text" [(ngModel)]="record.Name" class="form-control" name="Name" placeholder="Nhập tên tư vấn" #name="ngModel"
+        required>
+      <p style="color: red" [hidden]="name.valid || name.pristine">
+        Phải nhập tên tư vấn
+      </p>
+    </div>
+    <div class="form-group">
+      <div class="form-group">
+        <label for="ConsultingEmpl">Nhân viên tư vấn</label>
+        <input type="text" class="form-control" placeholder="Nhập tên nhân viên tư vấn" [(ngModel)]="record.ConsultingEmpl"
+          name="ConsultingEmpl" [ngbTypeahead]="employeeLoading" [resultFormatter]="employeeFormatter" [inputFormatter]="employeeFormatter"
+          #employee="ngModel">
+        <p style="color: red" *ngIf="employeeSearchFailed">Nhân viên không tồn tại</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-group">
+        <label for="Customer">Khách hàng được tư vấn</label>
+        <input type="text" class="form-control" placeholder="Nhập tên khách hàng" [(ngModel)]="record.Customer" name="Customer"
+          [ngbTypeahead]="customerLoading" [resultFormatter]="customerFormatter" [inputFormatter]="customerFormatter" #customer="ngModel">
+        <p style="color: red" *ngIf="customerSearchFailed">Khách hàng không tồn tại</p>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="Content">Nội dung tư vấn</label>
+      <textarea rows="5" type="text" [(ngModel)]="record.Content" class="form-control" name="Content" placeholder="Nhập nội dung"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="ConsultedPerson">Người được tư vấn</label>
+      <textarea type="text" rows="5" [(ngModel)]="record.ConsultedPerson" class="form-control" name="ConsultedPerson" placeholder="Nhập thông tin người được tư vấn"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="Time">Thời gian</label>
+      <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="record.Time" name="Time" ngbDatepicker #time="ngbDatepicker" placeholder="Chọn thời gian"
+          required>
+        <button class="input-group-addon" (click)="time.toggle()" type="button">
+          <i class="fa fa-calendar"></i>
+        </button>
+      </div>
+    </div>
+    <div class="text-right">
+      <button type="submit" class="btn app-btn" [disabled]="!form.form.valid || employeeSearchFailed || customerSearchFailed">Cập nhật thông tin</button>
+    </div>>
+  </form>
+</div>

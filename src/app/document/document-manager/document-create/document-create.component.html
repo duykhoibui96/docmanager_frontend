@@ -1,0 +1,32 @@
+<form #form="ngForm" (ngSubmit)="form.form.valid && uploadFiles()">
+  <div class="form-group">
+    <input type="file" class="form-control-file" ng2FileSelect [uploader]="uploader" multiple hidden #uploadFile>
+    <button class="btn app-btn" (click)="uploadFile.click()">Chọn tài liệu</button>
+  </div>
+  <div class="text-right">
+    <button type="submit" class="btn app-btn primary" [hidden]="!uploader.getNotUploadedItems().length || !form.form.valid">Upload tài liệu</button>
+    <button class="btn app-btn default" [hidden]="!uploader.getNotUploadedItems().length" (click)="uploader.clearQueue()">Xóa hết tài liệu</button>
+  </div>
+</form>
+<table class="mt-2 table table-hover table-responsive table-mc-light-blue" *ngIf="uploader.queue.length > 0">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Tập tin</th>
+      <th>Kích thước</th>
+      <th>Loại</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let file of uploader.queue; let i=index">
+      <td>{{i + 1}}</td>
+      <td>{{file._file.name}}</td>
+      <td>{{file._file.size}}</td>
+      <td>{{file._file.type}}</td>
+      <td class="clickable text-center" (click)="uploader.removeFromQueue(file)">
+        <i class="fa fa-times"></i>
+      </td>
+    </tr>
+  </tbody>
+</table>

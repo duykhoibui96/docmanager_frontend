@@ -1,0 +1,51 @@
+<app-title [title]="'Thêm nhân viên'" [mode]="'single'" [url]="routingUrl"></app-title>
+<div class="container p-5">
+  <form (ngSubmit)="employeeForm.form.valid && isEmailValid && submit()" #employeeForm="ngForm">
+    <!-- <div class="alert alert-warning" *ngIf="err">
+          {{err}}
+        </div> -->
+    <div class="form-group">
+      <label for="EmplID">Mã nhân viên</label>
+      <input type="text" [(ngModel)]="record.EmplID" class="form-control" name="EmplID" placeholder="Nhập mã nhân viên" readonly
+        required>
+    </div>
+    <div class="form-group">
+      <label for="Name">Tên nhân viên</label>
+      <input type="text" [(ngModel)]="record.Name" class="form-control" name="Name" placeholder="Nhập tên nhân viên" #name="ngModel"
+        required>
+      <p style="color: red" [hidden]="name.valid || name.pristine">
+        Phải nhập tên nhân viên
+      </p>
+    </div>
+    <div class="form-group">
+      <label for="ChildDepartment">Phòng ban</label>
+      <input type="text" [(ngModel)]="record.ChildDepartment" class="form-control" name="ChildDepartment" placeholder="Nhập phòng ban">
+    </div>
+    <div class="form-group">
+      <label for="OfficerCode">Chức vụ</label>
+      <input type="text" [(ngModel)]="record.OfficerCode" class="form-control" name="OfficerCode" placeholder="Nhập chức vụ">
+    </div>
+    <div class="form-group">
+      <label for="JobTitle">Công việc</label>
+      <input type="text" [(ngModel)]="record.JobTitle" class="form-control" name="JobTitle" placeholder="Nhập công việc">
+    </div>
+    <div class="form-group">
+      <label for="Mail">Email</label>
+      <input type="email" (input)="emailChange($event)" [(ngModel)]="record.Mail" class="form-control" name="Mail" placeholder="Nhập email"
+        required #mail="ngModel">
+      <p style="color: red" [hidden]="mail.valid || mail.pristine">
+        Phải nhập email
+      </p>
+      <p style="color: red" [hidden]="!isEmailChecked || isEmailValid">
+        Email đã có người sử dụng
+      </p>
+      <p style="color: green" [hidden]="!isEmailChecked || !isEmailValid">
+        Email hợp lệ
+      </p>
+      <button type="button" class=" mt-3 btn app-btn default" [disabled]="isEmailChecked" (click)="validateEmail()">Kiểm tra email</button>
+    </div>
+    <div class="text-right">
+      <button type="submit" class="btn app-btn" [disabled]="!employeeForm.form.valid || !isEmailValid">Thêm nhân viên</button>
+    </div>
+  </form>
+</div>

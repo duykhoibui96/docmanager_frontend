@@ -1,0 +1,12 @@
+<app-title [title]="isCurrent ? 'Thông tin cá nhân' : 'Chi tiết nhân viên'" [mode]="'single'" [url]="'/employees'"></app-title>
+<div class="text-right pr-5 pt-3">
+  <button class="btn app-btn toggle-btn" routerLink="info" routerLinkActive="active">Thông tin cá nhân</button>
+  <button class="btn app-btn toggle-btn" routerLink="customer-list" routerLinkActive="active" [queryParams]="{ page: 1}">Quản lý khách hàng</button>
+  <button class="btn app-btn toggle-btn" routerLink="consultancy-list" routerLinkActive="active" [queryParams]="{ page: 1}">Tư vấn</button>
+  <button class="btn app-btn toggle-btn" routerLink="study-list" routerLinkActive="active" [queryParams]="{ page: 1}">Nghiên cứu</button>
+  <button class="btn app-btn toggle-btn" routerLink="instruction-list" routerLinkActive="active" [queryParams]="{ page: 1}">Hướng dẫn</button>
+  <button class="btn app-btn toggle-btn" routerLink="seminar-list" routerLinkActive="active" [queryParams]="{ page: 1}">Hội thảo đã chia sẻ</button>
+</div>
+<div class="container p-5">
+  <router-outlet></router-outlet>
+</div>

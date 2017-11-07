@@ -53,7 +53,7 @@ export class ConsultancyAddComponent extends ModelDetail implements OnInit {
   //.do(() => this.searching = false)
 
   employeeSearchFailed = false;
-  employeeFormatter = result => !result ? null : `${result['EmplID']} - ${result['Name']}`
+  employeeFormatter = result => !result ? null : `${result['Name']}`
 
   customerLoading = (text$: Observable<string>) =>
     text$
@@ -70,7 +70,7 @@ export class ConsultancyAddComponent extends ModelDetail implements OnInit {
   //.do(() => this.searching = false)
 
   customerSearchFailed = false;
-  customerFormatter = result => !result ? null : `${result['CustomerID']} - ${result['Name']}`;
+  customerFormatter = result => !result ? null : `${result['Name']}`;
 
   initRecord() {
 

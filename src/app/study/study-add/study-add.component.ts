@@ -52,7 +52,7 @@ export class StudyAddComponent extends ModelDetail implements OnInit {
   //.do(() => this.searching = false)
 
   seminarSearchFailed = false;
-  seminarFormatter = result => !result ? null : `${result['SeminarID']} - ${result['Name']}`;
+  seminarFormatter = result => !result ? null : `${result['Name']}`;
 
   initRecord() {
 

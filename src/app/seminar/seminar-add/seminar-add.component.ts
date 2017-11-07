@@ -56,7 +56,7 @@ export class SeminarAddComponent extends ModelDetail implements OnInit {
   //.do(() => this.searching = false)
 
   indexSearchFailed = false;
-  indexFormatter = result => `${result['EmplID']} - ${result['Name']}`;
+  indexFormatter = result => `${result['Name']}`;
 
   initRecord() {
 
